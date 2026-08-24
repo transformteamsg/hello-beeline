@@ -1,0 +1,13 @@
+{
+  "name": "hello-beeline",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Throwaway hello-world app for the Beeline sandbox onboarding walkthrough",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
