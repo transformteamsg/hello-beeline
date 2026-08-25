@@ -1,19 +1,23 @@
 # hello-beeline
 
-Minimal zero-dependency Node hello-world app for the Beeline sandbox onboarding walkthrough.
+Minimal Next.js hello-world app for the Beeline sandbox onboarding walkthrough.
 
 ## Run locally
 
 Requires Node.js 18+.
 
 ```bash
-npm start
+npm install
+npm run dev
 ```
 
-The server listens on `PORT` (defaults to `3000`). To use a different port:
+The dev server listens on [http://localhost:3000](http://localhost:3000).
+
+For a production-style run:
 
 ```bash
-PORT=8080 npm start
+npm run build
+npm start
 ```
 
 ## Endpoints

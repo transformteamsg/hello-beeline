@@ -2,12 +2,21 @@
   "name": "hello-beeline",
   "version": "0.1.0",
   "private": true,
-  "description": "Throwaway hello-world app for the Beeline sandbox onboarding walkthrough",
-  "main": "server.js",
+  "description": "Throwaway hello-world Next.js app for the Beeline sandbox onboarding walkthrough",
   "scripts": {
-    "start": "node server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "engines": {
-    "node": ">=18"
+  "dependencies": {
+    "next": "16.2.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5.9.3"
   }
 }
