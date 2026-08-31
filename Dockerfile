@@ -19,8 +19,7 @@ RUN npm run build
 FROM node:24-alpine AS runner
 WORKDIR /app
 
-RUN apk add --no-cache curl \
-  && addgroup -S nodejs \
+RUN addgroup -S nodejs \
   && adduser -S nextjs -G nodejs
 
 ENV NODE_ENV=production
@@ -40,6 +39,6 @@ USER nextjs
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=20s --retries=3 \
-  CMD curl -fsS http://127.0.0.1:3000/healthz || exit 1
+  CMD wget -qO- http://127.0.0.1:3000/healthz || exit 1
 
 CMD ["npm", "start"]
