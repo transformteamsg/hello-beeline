@@ -109,9 +109,13 @@ File `infra/states/provider.aws/acct.mgmt/iam/github/terragrunt.hcl`, the
 `enable_web_identity_statement.conditions.sub.values` list:
 - Added `repo:transformteamsg@157443699/*` (org-ID-scoped; matches all repos in the org).
 - Kept `repo:transformteamsg/*` as a fallback.
-- Dropped stale `repo:String-dxd/hello-beeline:*` (repo migrated). Other
-  `String-dxd/*` entries (onward, my-sec, covaa, sums, reliefcher,
-  fsbb-calculator) **must not be touched** — they belong to other apps.
+- The stale `repo:String-dxd/hello-beeline:*` entry is **still present** on disk
+  (line 61) — repo has migrated to `transformteamsg`, so this is dead and can be
+  removed, but it is harmless. Other `String-dxd/*` entries (onward, my-sec,
+  covaa, sums, reliefcher, fsbb-calculator) **must not be touched** — they belong
+  to other apps.
+
+  The only functional line for hello-beeline is `repo:transformteamsg@157443699/*`.
 
 `157443699` is the **org** id → org-wide, not repo-specific. Repo-specific would
 need repo id `1322510990`. **This is a mgmt change → commit → push → MR → tag
