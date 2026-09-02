@@ -23,7 +23,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out the repository
+        uses: actions/checkout@v4
 
       - name: Check the Beeline configuration is present
         # These are set on the repository by DevOps during onboarding. Without
@@ -51,15 +52,18 @@ jobs:
           case $(( ${#PAYLOAD} % 4 )) in 2) PAYLOAD="$PAYLOAD==";; 3) PAYLOAD="$PAYLOAD=";; esac
           echo "$PAYLOAD" | base64 -d | jq '{sub, aud, iss, repository, repository_owner, ref}'
 
-      - uses: aws-actions/configure-aws-credentials@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.BEELINE_AWS_ROLE_ARN }}
           aws-region: ${{ vars.BEELINE_AWS_REGION }}
 
-      - uses: aws-actions/amazon-ecr-login@v2
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
         id: ecr
 
-      - uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Build and push
         uses: docker/build-push-action@v6
