@@ -59,11 +59,11 @@ jobs:
       - uses: aws-actions/amazon-ecr-login@v2
         id: ecr
 
+      - uses: docker/setup-buildx-action@v3
+
       - name: Build and push
-        env:
-          REGISTRY: ${{ vars.BEELINE_ECR_REGISTRY }}
-        run: |
-          IMAGE="$REGISTRY/$BEELINE_APP:${{ github.sha }}"
-          docker build -t "$IMAGE" .
-          docker push "$IMAGE"
-          echo "Pushed $IMAGE"
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ vars.BEELINE_ECR_REGISTRY }}/${{ env.BEELINE_APP }}:${{ github.sha }}
