@@ -41,17 +41,6 @@ jobs:
             exit 1
           fi
 
-      # TEMPORARY debug — remove once the OIDC trust issue is resolved.
-      # Prints the OIDC token claims so we can compare `sub`/`aud`/`iss`
-      # against the transform-github role trust policy.
-      - name: Show OIDC claims (debug)
-        run: |
-          TOKEN=$(curl -sH "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r .value)
-          PAYLOAD=$(echo "$TOKEN" | cut -d. -f2 | tr '_-' '/+')
-          case $(( ${#PAYLOAD} % 4 )) in 2) PAYLOAD="$PAYLOAD==";; 3) PAYLOAD="$PAYLOAD=";; esac
-          echo "$PAYLOAD" | base64 -d | jq '{sub, aud, iss, repository, repository_owner, ref}'
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
